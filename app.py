@@ -2,8 +2,7 @@ import argparse
 from utils.pdf_img_converter import *
 from utils.bounding_box import *
 from utils.merge import *
-from utils.pdf_metadata import * 
-
+from utils.image_processing import make_image_transparent
 
 ag = argparse.ArgumentParser()
 ag.add_argument("-p", "--pdf", type = str, required = True, help = "Input pdf file where sign is requierd." )
@@ -17,14 +16,14 @@ sign_image_file_path = arguments.sign
 output_pdf_file_path = arguments.output
 
 resized_dimension = (800,800)
-pdf_metadata = get_pdf_metadata(pdf_file_path)
 
 pdf_images = convert_pdf_to_image(pdf_file_path)
 sign_image = cv2.imread(sign_image_file_path)
+sign_image = make_image_transparent(sign_image)
 
 sign_area_per_page = []
 
-print("pdfff",len(pdf_images))
+
 for pdf_image in pdf_images:
     sign_area_per_page.append(get_bounding_box(pdf_image, resized_dimension))
 
@@ -36,6 +35,6 @@ for page, sign_areas in enumerate(sign_area_per_page):
         pdf_images[page] = add_sign_to_sign_area(pdf_images[page], sign_image, absolute_sign_area)
 
 
-images_to_pdf(pdf_images, output_pdf_file_path, pdf_metadata )
+images_to_pdf(pdf_images, output_pdf_file_path )
 
 cv2.imwrite('test_pdf.jpeg',pdf_images[0])

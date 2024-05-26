@@ -21,11 +21,11 @@ def convert_pdf_to_image(pdf_path):
         
     return cv_images
 
-def images_to_pdf(image_list, pdf_filename, pdf_metadata):
+def images_to_pdf(image_list, pdf_filename):
     pdf = FPDF()
     for idx,image in enumerate(image_list):
         
-        temp_image_path = f"temp_image_{idx}.png"
+        temp_image_path = f"test/temp_image_{idx}.png"
         cv2.imwrite(temp_image_path, image)
         pdf.add_page()
         pdf.image(temp_image_path, 0, 0, 210, 297) # A4 Size

@@ -81,5 +81,5 @@ def get_absolute_bounding_box(bbox, resized_dimensions, page_dimensions):
         absolute_y1 = int(y1 / resized_height * page_height)
         absolute_x2 = int(x2 / resized_width * page_width)
         absolute_y2 = int(y2 / resized_height * page_height)
-        print("abs",  (absolute_x1, absolute_y1), (absolute_x2, absolute_y2) )
+
         return (absolute_x1, absolute_y1), (absolute_x2, absolute_y2)
