@@ -65,3 +65,21 @@ def get_bounding_box(image,resize_parameter):
                 print("No bounding box created yet!")
 
     cv2.destroyAllWindows()
+
+
+def get_absolute_bounding_box(bbox, resized_dimensions, page_dimensions):
+
+        # Extract resized and page dimensions
+        resized_height, resized_width = resized_dimensions
+        page_height, page_width,_ = page_dimensions
+
+        # Extract bounding box coordinates
+        (x1, y1), (x2, y2) = bbox
+
+        # Convert bounding box coordinates to absolute coordinates
+        absolute_x1 = int(x1 / resized_width * page_width)
+        absolute_y1 = int(y1 / resized_height * page_height)
+        absolute_x2 = int(x2 / resized_width * page_width)
+        absolute_y2 = int(y2 / resized_height * page_height)
+        print("abs",  (absolute_x1, absolute_y1), (absolute_x2, absolute_y2) )
+        return (absolute_x1, absolute_y1), (absolute_x2, absolute_y2)
