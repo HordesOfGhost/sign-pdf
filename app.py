@@ -2,7 +2,6 @@ import argparse
 from utils.pdf_img_converter import *
 from utils.bounding_box import *
 from utils.merge import *
-from utils.image_processing import make_image_transparent
 
 ag = argparse.ArgumentParser()
 ag.add_argument("-p", "--pdf", type = str, required = True, help = "Input pdf file where sign is requierd." )
@@ -17,9 +16,10 @@ output_pdf_file_path = arguments.output
 
 resized_dimension = (800,800)
 
+sign_image = cv2.imread(sign_image_file_path, -1)
 pdf_images = convert_pdf_to_image(pdf_file_path)
-sign_image = cv2.imread(sign_image_file_path)
-sign_image = make_image_transparent(sign_image)
+
+
 
 sign_area_per_page = []
 
@@ -28,13 +28,17 @@ for pdf_image in pdf_images:
     sign_area_per_page.append(get_bounding_box(pdf_image, resized_dimension))
 
 
+if sign_image[-1] == 4:
+    for page, sign_areas in enumerate(sign_area_per_page):
+        for sign_area in sign_areas:
+            absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
+            pdf_images[page] = add_sign_to_sign_area(pdf_images[page], sign_image, absolute_sign_area)
 
-for page, sign_areas in enumerate(sign_area_per_page):
-    for sign_area in sign_areas:
-        absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
-        pdf_images[page] = add_sign_to_sign_area(pdf_images[page], sign_image, absolute_sign_area)
 
+    images_to_pdf(pdf_images, output_pdf_file_path )
 
-images_to_pdf(pdf_images, output_pdf_file_path )
-
-cv2.imwrite('test_pdf.jpeg',pdf_images[0])
+else:
+    for page, sign_areas in enumerate(sign_area_per_page):
+        for sign_area in sign_areas:
+            absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
+            
