@@ -16,7 +16,12 @@ output_pdf_file_path = arguments.output
 
 resized_dimension = (800,800)
 
-sign_image = cv2.imread(sign_image_file_path, -1)
+
+if os.path.splitext(sign_image_file_path)[1].lower() != '.png':
+    sign_image = cv2.imread(sign_image_file_path)
+else:
+    sign_image = cv2.imread(sign_image_file_path, -1)
+
 pdf_images = convert_pdf_to_image(pdf_file_path)
 
 
@@ -27,18 +32,24 @@ sign_area_per_page = []
 for pdf_image in pdf_images:
     sign_area_per_page.append(get_bounding_box(pdf_image, resized_dimension))
 
+if sign_image.shape[-1] == 3:
 
-if sign_image[-1] == 4:
     for page, sign_areas in enumerate(sign_area_per_page):
-        for sign_area in sign_areas:
-            absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
-            pdf_images[page] = add_sign_to_sign_area(pdf_images[page], sign_image, absolute_sign_area)
+        
+        if sign_areas:
+            for sign_area in sign_areas:
+                absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
+                pdf_images[page] = add_sign_to_sign_area(pdf_images[page], sign_image, absolute_sign_area)
 
 
     images_to_pdf(pdf_images, output_pdf_file_path )
 
 else:
     for page, sign_areas in enumerate(sign_area_per_page):
-        for sign_area in sign_areas:
-            absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
-            
+        if sign_areas:
+            for sign_area in sign_areas:
+                absolute_sign_area = get_absolute_bounding_box(sign_area, resized_dimension, pdf_images[page].shape)
+                pdf_images[page] = add_sign_to_sign_area_transparent(pdf_images[page], sign_image_file_path, absolute_sign_area, page)
+
+    images_to_pdf(pdf_images, output_pdf_file_path )
+
