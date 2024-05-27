@@ -60,5 +60,5 @@ After running the application, a window will appear allowing you to draw the rec
 3. Press `s` to save the signed PDF.
 4. If you need to retry, press `r`.
 
-!![\[Drawing Rectangular Sign Area\](Screenshot%20(117).png)](<screenshots/Screenshot (117).png>)
+!![\[Drawing Rectangular Sign Area\](ss.png)](<screenshots/ss.png>)
 
