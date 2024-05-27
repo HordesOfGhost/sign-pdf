@@ -1,6 +1,17 @@
 import cv2
 
-def get_bounding_box(image,resize_parameter):
+def get_bounding_box(image,resize_dimension):
+    '''
+    
+        Function to draw Bounding Box or Sign Area.
+
+        Parameters: 
+            image : pdf pages as image.
+            resize_dimension : resize dimension for better visualizaton.
+
+        Returns:
+            bboxes: returns array of bounding boxes or sign areas.
+    '''
     def draw_rectangle(event, x, y, flags, params):
         nonlocal x_init, y_init, drawing, top_left_pt, bottom_right_pt, bbox, img
 
@@ -32,7 +43,7 @@ def get_bounding_box(image,resize_parameter):
 
     # Load the image
     img = image.copy()
-    img = cv2.resize(img, resize_parameter)
+    img = cv2.resize(img, resize_dimension)
     cv2.imshow("Bounding Box *** INSTRUCTIONS : [-q to Quit, -r to ReDraw, -a to AddBoxes, -s to Save] ***", img)
     cv2.setMouseCallback("Bounding Box *** INSTRUCTIONS : [-q to Quit, -r to ReDraw, -a to AddBoxes, -s to Save] ***", draw_rectangle)
 
@@ -42,23 +53,22 @@ def get_bounding_box(image,resize_parameter):
         if key == ord('q'):
             break
         
-        elif key == ord('r'):  # Reset the bounding box
+        elif key == ord('r'):  # Reset the bounding box.
             img = image.copy()
-            img = cv2.resize(img, resize_parameter)
+            img = cv2.resize(img, resize_dimension)
             cv2.imshow("Bounding Box *** INSTRUCTIONS : [-q to Quit, -r to ReDraw, -a to AddBoxes, -s to Save] ***", img)
             top_left_pt, bottom_right_pt = (-1, -1), (-1, -1)
             bbox = None
         
-        elif key == ord('a'):  # Save bounding box info
+        elif key == ord('a'):  # Add bounding box info.
+
             if bbox is not None:
-                # print("Bounding box coordinates:", bbox)
                 bboxes.append(bbox)
             else:
                 print("No bounding box created yet!")
 
         elif key == ord('s'):  # Save bounding box info
-            if bboxes is not None:
-                # print("Bounding box coordinates:", bbox)
+            if bbox is not None:
                 cv2.destroyAllWindows()
                 return bboxes
             else:
@@ -68,6 +78,18 @@ def get_bounding_box(image,resize_parameter):
 
 
 def get_absolute_bounding_box(bbox, resized_dimensions, page_dimensions):
+        '''
+        
+            Get absolute Bounding Box or Sign Area.
+
+            Parameters:
+                bbox : relative bounding box or sign area.
+                resized_dimensions : the dimension pdf pages were resized to.
+                page_dimensions : the actual dimension of pdf pages.
+            
+            Returns:
+                (absolute_x1, absolute_y1), (absolute_x2, absolute_y2) : exact area where sign is to be added.
+        '''
 
         # Extract resized and page dimensions
         resized_height, resized_width = resized_dimensions

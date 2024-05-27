@@ -1,10 +1,6 @@
 fpdf==1.7.2
-gast==0.3.3
 numpy==1.24.4
 opencv-python==4.9.0.80
 pdf2image==1.17.0
 pillow==10.3.0
 pypdf==4.2.0
-thop==0.1.1.post2209072238
-typing_extensions==4.12.0
-
