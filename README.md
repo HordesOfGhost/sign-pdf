@@ -59,6 +59,6 @@ After running the application, a window will appear allowing you to draw the rec
 2. Press `a` to add the signature after each rectangular box drawn. 
 3. Press `s` to save the signed PDF.
 4. If you need to retry, press `r`. <br>
-[ P.S. you can skip a pdf page without drawing just by pressing `s`.]
+[ P.S. you can skip a pdf page without drawing just by pressing `q`.]
 !![\[Drawing Rectangular Sign Area\](ss.png)](<screenshots/ss.png>)
 
