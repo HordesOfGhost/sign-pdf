@@ -56,9 +56,9 @@ python app.py --pdf documents/sample.pdf --sign images/signature.png --output si
 After running the application, a window will appear allowing you to draw the rectangular area where the signature will be placed. Follow these steps:
 
 1. Draw the rectangular sign area.
-2. Press `a` to add the signature after each rectangular box drawn
+2. Press `a` to add the signature after each rectangular box drawn. 
 3. Press `s` to save the signed PDF.
 4. If you need to retry, press `r`.
-
+[ P.S. you can skip a pdf page without drawing just by pressing `s`.]
 !![\[Drawing Rectangular Sign Area\](ss.png)](<screenshots/ss.png>)
 
