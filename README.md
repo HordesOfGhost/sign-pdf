@@ -1,10 +1,10 @@
-Sure! Here's an improved version of your `README.md`:
+Here's the improved `README.md` including the example command and screenshot instructions:
 
 ---
 
-# Sign PDF Application
+# sign-pdf
 
-This application allows you to sign PDF documents with an image of your signature. 
+This application allows you to sign PDF documents with an image of your signature.
 
 ## Prerequisites
 
@@ -43,7 +43,7 @@ python app.py --pdf path/to/your_pdf.pdf --sign path/to/your_sign(.jpg/.png) --o
 ### Command Line Arguments
 
 - `--pdf`: Path to the PDF file that you want to sign.
-- `--sign`: Path to the image file of your signature (supports .jpg and .png formats).
+- `--sign`: Path to the image file of your signature.
 - `--output`: Path where the signed PDF will be saved.
 
 ## Example
@@ -54,14 +54,14 @@ Here's an example command to sign a PDF:
 python app.py --pdf documents/sample.pdf --sign images/signature.png --output signed_documents/signed_sample.pdf
 ```
 
-## License
+## Usage Instructions
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+After running the application, a window will appear allowing you to draw the rectangular area where the signature will be placed. Follow these steps:
 
-## Contributing
+1. Draw the rectangular sign area.
+2. Press `a` to add the signature.
+3. Press `s` to save the signed PDF.
+4. If you need to retry, press `r`.
 
-We welcome contributions! Please see our [CONTRIBUTING](CONTRIBUTING.md) guide for more details.
+![Drawing Rectangular Sign Area](Screenshot%20(117).png)
 
----
-
-This updated README provides a clear and concise guide for users to install and use your PDF signing application.
