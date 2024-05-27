@@ -1,7 +1,4 @@
-Here's the improved `README.md` including the example command and screenshot instructions:
-
----
-
+----
 # sign-pdf
 
 This application allows you to sign PDF documents with an image of your signature.
